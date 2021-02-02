@@ -1,4 +1,4 @@
-name: "Close finished milestones"
+name: CloseMilestone
 on:
   schedule:
   - cron: "*/5 * * * *"
