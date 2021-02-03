@@ -21,6 +21,6 @@ jobs:
       - name: Slack Notification
         uses: tokorom/action-slack-incoming-webhook@main
         env:
-          INCOMING_WEBHOOK_URL: https://hooks.slack.com/services/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
+          INCOMING_WEBHOOK_URL: https://hooks.slack.com/services/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
         with:
           text: Hello, Slack!
