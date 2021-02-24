@@ -36,9 +36,11 @@ jobs:
       # artifact化するため、Git archive後にunzipして展開します
       - name: Git archive run
         # git config --local core.quotepath false
+        #  git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` -o ${{github.sha}}.zip
+        # unzip -d ${{github.sha}} ${{github.sha}}.zip 
         run: |
-          git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` -o ${{github.sha}}.zip
-          unzip -d ${{github.sha}} ${{github.sha}}.zip 
+          mkdir ${{github.sha}}
+          git checkout-index -f --prefix=${{github.sha}}/ origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR`
       - uses: actions/upload-artifact@v1
         with:
           name: html
