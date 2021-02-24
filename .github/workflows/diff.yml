@@ -19,7 +19,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       #- uses: actions/checkout@v2
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       # masterとの差分を取得する必要があるため全ブランチを取得します。
         with:
           fetch-depth: 0
