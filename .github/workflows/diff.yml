@@ -24,7 +24,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Target Branch name
-        run: echo ${GITHUB_HEAD_REF}      
+        run: echo ${GITHUB_HEAD_REF}
       #- run: git status
       #- run: git branch
       - name: Target files
@@ -34,9 +34,9 @@ jobs:
       - name: Git archive run
         run: |
           mkdir tmp
-          git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` -o archive.zip
-          unzip -d archive archive.zip 
+          git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` -o ${GITHUB_HEAD_REF}.zip
+          unzip -d ${GITHUB_HEAD_REF} ${GITHUB_HEAD_REF}.zip 
       - uses: actions/upload-artifact@v1
         with:
           name: html
-          path: archive
+          path: ${GITHUB_HEAD_REF}
