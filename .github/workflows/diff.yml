@@ -1,15 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: DIFF
+name: Make release archive.
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   pull_request:
     branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions taab
-  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -23,27 +20,23 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       #- uses: actions/checkout@v2
       - uses: actions/checkout@master
+      # masterとの差分を取得する必要があるため全ブランチを取得します。
         with:
           fetch-depth: 0
-      - name: Branch name
-        run: echo running on branch ${GITHUB_REF##*/}
-      - run: echo ${GITHUB_REF}
-      - run: echo ${GITHUB_HEAD_REF}
-      - run: echo ${GITHUB_BASE_REF}
-      - run: git status
-      - run: git branch
-      - run: git diff origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR
-      # Runs a single command using the runners shell
-      - name: Make ArchiveRun a diff archive
-        #mkdir archive
-        #git checkout-index -f --prefix=archive/ `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR`
+      - name: Target Branch name
+        run: echo ${GITHUB_HEAD_REF}      
+      #- run: git status
+      #- run: git branch
+      - name: Target files
+        run: git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR
+      - run: echo ${{github.sha}}
+      # artifact化するため、Git archive後にunzipして展開します
+      - name: Git archive run
         run: |
           mkdir tmp
           git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` -o archive.zip
-          ls -la
           unzip -d archive archive.zip 
       - uses: actions/upload-artifact@v1
         with:
-          name: archive
+          name: html
           path: archive
-          #path: archive.zip
