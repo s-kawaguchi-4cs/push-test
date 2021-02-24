@@ -1,6 +1,5 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Make release archive.
+# リリース用のアーカイブを作成（masterに対してのプルリクで発火)
+name: Create an archive for release.
 
 # Controls when the action will run. 
 on:
