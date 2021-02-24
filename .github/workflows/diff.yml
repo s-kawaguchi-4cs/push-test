@@ -40,6 +40,7 @@ jobs:
         # unzip -d ${{github.sha}} ${{github.sha}}.zip 
         run: |
           mkdir ${{github.sha}}
+          git config --local core.quotepath false
           git checkout-index -f --prefix=${{github.sha}}/ origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR`
       - uses: actions/upload-artifact@v1
         with:
