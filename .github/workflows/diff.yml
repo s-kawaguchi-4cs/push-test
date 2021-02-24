@@ -35,9 +35,9 @@ jobs:
       - run: git diff origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR
       # Runs a single command using the runners shell
       - name: Make ArchiveRun a diff archive
+        #mkdir archive
+        #git checkout-index -f --prefix=archive/ `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR`
         run: |
-          #mkdir archive
-          #git checkout-index -f --prefix=archive/ `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR`
           git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` -o archive.zip
           unzip archive.zip
       - uses: actions/upload-artifact@v1
