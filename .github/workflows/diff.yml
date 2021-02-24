@@ -25,11 +25,12 @@ jobs:
           fetch-depth: 0
       - name: Target Branch name
         run: echo ${GITHUB_HEAD_REF}
+      - run: git branch --show-current
       #- run: git status
       #- run: git branch
       - name: Target files
         run: git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR
-      - run: echo ${{github.sha}}
+      # - run: echo ${{github.sha}}
       # artifact化するため、Git archive後にunzipして展開します
       - name: Git archive run
         run: |
