@@ -42,7 +42,8 @@ jobs:
         run: |
           git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` -o ${{github.sha}}.zip
           unzip -d ${{github.sha}} ${{github.sha}}.zip 
-      - name: Git archive run (Tar)|
+      - name: Git archive run (Tar)
+        run: |
           git config --local core.quotepath false
           git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` --format=tar -o ${{github.sha}}.tar
       - uses: actions/upload-artifact@v1
