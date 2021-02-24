@@ -33,3 +33,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a diff archive
         run: git archive ${GITHUB_REF##*/} `git diff --name-only origin/main..origin/${GITHUB_REF##*/} --diff-filter=ACMR` -o archive.zip
+      - uses: actions/upload-artifact@v1
+        with:
+          name: archive.zip
+          path: archive.zip
