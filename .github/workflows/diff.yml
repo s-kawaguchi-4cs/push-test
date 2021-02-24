@@ -35,4 +35,4 @@ jobs:
       - run: git diff origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR
       # Runs a single command using the runners shell
       - name: Run a diff archive
-        run: git archive ${GITHUB_REF##*/} `git diff --name-only origin/main..origin/${GITHUB_REF##*/} --diff-filter=ACMR` -o archive.zip
+        run: git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` -o archive.zip
