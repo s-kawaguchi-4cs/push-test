@@ -38,11 +38,12 @@ jobs:
         #mkdir archive
         #git checkout-index -f --prefix=archive/ `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR`
         run: |
+          mkdir tmp
           git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` -o archive.zip
           ls -la
-          unzip archive.zip
+          unzip -d tmp archive.zip 
       - uses: actions/upload-artifact@v1
         with:
           name: archive
-          path: archive
+          path: tmp/archive
           #path: archive.zip
