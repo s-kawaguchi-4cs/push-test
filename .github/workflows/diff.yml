@@ -52,10 +52,13 @@ jobs:
           path: ${{github.sha}}
       - name: Git archive run (Tar)
         if: steps.archive_zip.outcome == 'failure'
+        id: archive_tar
         run: |
           git config --local core.quotepath false
           git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` --format=tar -o ${{github.sha}}.tar
-      - uses: actions/upload-artifact@v1
+      - name: Upload artifact(tar)
+        if: steps.archive_tar.outcome == 'success'
+        uses: actions/upload-artifact@v1 
         with:
           name: html_tar
           #path: ${{github.sha}}
