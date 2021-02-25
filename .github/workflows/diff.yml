@@ -50,6 +50,7 @@ jobs:
         with:
           name: html
           path: ${{github.sha}}
+          retention-days: 2
       - name: Git archive run (Tar)
         if: steps.archive_zip.outcome == 'failure'
         id: archive_tar
@@ -62,4 +63,5 @@ jobs:
         with:
           name: html_tar
           #path: ${{github.sha}}
-          path: ${{github.sha}}.tar      
+          path: ${{github.sha}}.tar
+          retention-days: 2
