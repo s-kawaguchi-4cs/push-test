@@ -35,6 +35,7 @@ jobs:
       # - run: echo ${{github.sha}}
       # artifact化するため、Git archive後にunzipして展開します
       - name: Git archive run(Zip)
+        continue-on-error: true
         id: archive_zip
         # git config --local core.quotepath false
         #  git archive origin/${GITHUB_HEAD_REF} `git diff --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --diff-filter=ACMR` -o ${{github.sha}}.zip
