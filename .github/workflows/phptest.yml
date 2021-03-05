@@ -46,4 +46,4 @@ jobs:
         run: |
           php -v
           phpunit --version
-          mysql -h 127.0.0.1 --port 3306 -e "select version();"
+          mysql -h 127.0.0.1 --port 3306 -uroot -proot -e "select version();"
