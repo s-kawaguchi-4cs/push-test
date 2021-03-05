@@ -21,7 +21,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: system2_test
-        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
+        #options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
         
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -46,5 +46,4 @@ jobs:
         run: |
           php -v
           phpunit --version
-          mysql --version
-          mysql -uroot -proot -e "USE system2_test; show databases;"
+          mysql -h 127.0.0.1 --port 3306 -uroot -proot -e "USE system2_test; show databases;"
