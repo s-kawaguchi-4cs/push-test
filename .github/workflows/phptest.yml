@@ -27,9 +27,15 @@ jobs:
           extensions: xdebug
           coverage: xdebug
           tools: phpunit:4.8.36
-
+      - name: Setup Database
+        # MySQL の起動とデータベースの作成
+        run: |
+          sudo systemctl start mysql.service
+          mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS system2_test;'
       # Runs a set of commands using the runners shell
       - name: version-test
         run: |
           php -v
           phpunit --version
+          mysql --version
+          mysql -uroot -proot -e "USE system2_test; show databases;"
