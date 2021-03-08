@@ -13,16 +13,16 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-16.04
-    services:
-      mysql:
-        image: mysql:5.5
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: system2_test
-        #options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
-        
+    #services:
+    #  mysql:
+    #    image: mysql:5.5
+    #    ports:
+    #      - 3306:3306
+    #    env:
+    #      MYSQL_ROOT_PASSWORD: root
+    #      MYSQL_DATABASE: system2_test
+    #    #options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
+    #    
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -43,8 +43,10 @@ jobs:
       #    mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS system2_test;'
       # Runs a set of commands using the runners shell
       - name: version-test
+        env:
+          ENV: DOCKER
         run: |
+          printenv
           ls -la
           php -v
           phpunit --version
-          mysql -h 127.0.0.1 --port 3306 -uroot -proot -e "select version();"
