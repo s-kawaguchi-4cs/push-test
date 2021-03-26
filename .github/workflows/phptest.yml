@@ -50,3 +50,9 @@ jobs:
           ls -la
           php -v
           phpunit --version
+      - name: Slack Notification
+        uses: tokorom/action-slack-incoming-webhook@main
+        env:
+          INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          text: Hello, World!
